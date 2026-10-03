@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>GuardCart · Gatekeeper G — 吉祥物预览</title>
+<link rel="icon" type="image/svg+xml" href="mascot-favicon.svg" />
+<style>
+  :root {
+    --bg: #f7f5f2;
+    --ink: #171416;
+    --brand: #f28c28;
+    --accent: #6c4df6;
+    --line: #e3ded6;
+    --muted: #6f6a63;
+    --surface: #ffffff;
+    --eye: var(--ink); /* 产品实际采用：任何底色下都可见（两色方案） */
+  }
+  [data-theme="dark"] {
+    --bg: #0b0b0c;
+    --ink: #f2f2f2;
+    --brand: #ffa64d;
+    --accent: #9d86ff;
+    --line: #26262a;
+    --muted: #8e8e94;
+    --surface: #141416;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "Inter", -apple-system, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+    line-height: 1.6;
+  }
+  .wrap { max-width: 960px; margin: 0 auto; padding: 48px 24px 80px; }
+
+  header.top {
+    display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;
+    padding-bottom: 20px; border-bottom: 1px solid var(--line); margin-bottom: 40px;
+  }
+  h1 { font-size: 20px; font-weight: 700; }
+  h1 .dot { color: var(--brand); }
+  .controls { display: flex; gap: 8px; flex-wrap: wrap; }
+  .pill {
+    appearance: none; border: none; cursor: pointer;
+    background: var(--ink); color: var(--bg);
+    font: inherit; font-size: 13px; font-weight: 600;
+    padding: 8px 18px; border-radius: 999px;
+  }
+  .pill.ghost {
+    background: transparent; color: var(--ink);
+    border: 1px solid var(--line);
+  }
+  .pill.ghost.active { border-color: var(--accent); color: var(--accent); }
+
+  section { margin-bottom: 56px; }
+  h2 { font-size: 17px; font-weight: 700; margin-bottom: 6px; }
+  .sub { color: var(--muted); font-size: 14px; margin-bottom: 20px; max-width: 680px; }
+  .sub code { color: var(--ink); font-size: 12px; }
+
+  /* ---------- 动画演示 ---------- */
+  .stage {
+    display: flex; align-items: center; gap: 40px; flex-wrap: wrap;
+    border: 1px solid var(--line); border-radius: 12px; padding: 32px;
+  }
+  .stage .chip {
+    width: 200px; height: 200px; border-radius: 20px;
+    background: var(--accent);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .pose-btns { display: flex; flex-direction: column; gap: 10px; }
+  .pose-btns .pill { text-align: left; min-width: 200px; }
+  .pose-btns .pill.active { background: var(--accent); color: #fff; }
+  .pose-btns .hint { font-size: 12px; color: var(--muted); max-width: 220px; }
+
+  /* 演示用吉祥物（仅预览页使用 group/transform 做动画，交付的 .svg 文件保持扁平） */
+  #demoMascot .arm {
+    transform-box: view-box;
+    transform-origin: 96px 60px;
+    transition: transform 300ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  #demoMascot .eye-round, #demoMascot .eye-squint, #demoMascot .ring-open, #demoMascot .ring-closed {
+    transition: opacity 150ms ease, transform 300ms cubic-bezier(0.22, 1, 0.36, 1);
+    transform-box: view-box;
+  }
+  #demoMascot .ring-closed { opacity: 0; }
+  #demoMascot .eye-squint { opacity: 0; }
+
+  #demoMascot[data-pose="approve"] .arm { transform: rotate(-45deg); }
+  #demoMascot[data-pose="approve"] .eye-round { opacity: 0; }
+  #demoMascot[data-pose="approve"] .eye-squint { opacity: 1; }
+  #demoMascot[data-pose="ask"] .arm { transform: rotate(-22deg); }
+  #demoMascot[data-pose="ask"] .eye-round { transform: translate(2.1px, 2.1px); }
+  #demoMascot[data-pose="block"] .arm { transform: rotate(0deg); }
+  #demoMascot[data-pose="block"] .ring-open { opacity: 0; }
+  #demoMascot[data-pose="block"] .ring-closed { opacity: 1; }
+
+  /* 眨眼：仅页面进入时一次，120ms */
+  @keyframes gc-blink {
+    0%, 100% { transform: scaleY(1); }
+    50% { transform: scaleY(0.15); }
+  }
+  #demoMascot .blink {
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: gc-blink 120ms ease-in-out 700ms 1;
+  }
+
+  /* ---------- 姿势矩阵 ---------- */
+  .pose-card { border: 1px solid var(--line); border-radius: 12px; overflow: hidden; margin-bottom: 24px; }
+  .pose-card-head {
+    display: flex; align-items: baseline; gap: 10px;
+    padding: 14px 20px; border-bottom: 1px solid var(--line); background: var(--surface);
+  }
+  .pose-card-head h3 { font-size: 15px; font-weight: 700; }
+  .pose-card-head .use { font-size: 12px; color: var(--muted); }
+  .panels { display: grid; grid-template-columns: 1fr 1fr; }
+  .panel { padding: 24px; }
+  .panel.light { background: #f7f5f2; --ink: #171416; --bg: #f7f5f2; --brand: #f28c28; --muted: #6f6a63; border-right: 1px solid var(--line); }
+  .panel.dark  { background: #0b0b0c; --ink: #f2f2f2; --bg: #0b0b0c; --brand: #ffa64d; --muted: #8e8e94; }
+  .panel-label { font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-bottom: 18px; }
+  .sizes { display: flex; align-items: flex-end; gap: 44px; }
+  .size-item { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+  .size-item .num { font-size: 11px; color: var(--muted); font-variant-numeric: tabular-nums; }
+
+  /* ---------- 摆放面演示 ---------- */
+  .surfaces { display: flex; gap: 16px; flex-wrap: wrap; }
+  .surface-chip {
+    width: 120px; height: 120px; border-radius: 16px; border: 1px solid var(--line);
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px;
+    font-size: 11px;
+  }
+  .surface-chip.s-bg { background: var(--bg); color: var(--muted); }
+  .surface-chip.s-card { background: var(--surface); color: var(--muted); }
+  .surface-chip.s-accent { background: var(--accent); color: rgba(255,255,255,0.75); border-color: var(--accent); }
+
+  /* ---------- favicon ---------- */
+  .fav-row { display: flex; align-items: flex-end; gap: 32px; }
+  .fav-item { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+  .fav-item .num { font-size: 11px; color: var(--muted); }
+
+  pre.usage {
+    background: var(--surface); border: 1px solid var(--line); border-radius: 12px;
+    padding: 20px; font-size: 12px; line-height: 1.7; overflow-x: auto;
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+  }
+
+  @media (max-width: 640px) {
+    .panels { grid-template-columns: 1fr; }
+    .panel.light { border-right: none; border-bottom: 1px solid var(--line); }
+    .sizes { gap: 28px; }
+    .stage { padding: 20px; gap: 24px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    #demoMascot .arm,
+    #demoMascot .eye-round,
+    #demoMascot .eye-squint,
+    #demoMascot .ring-open,
+    #demoMascot .ring-closed { transition: none !important; }
+    #demoMascot .blink { animation: none !important; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="top">
+    <h1>Gatekeeper G <span class="dot">·</span> 方案 B 完整预览</h1>
+    <div class="controls">
+      <button class="pill ghost" id="eyeToggle" type="button">眼睛：var(--ink)</button>
+      <button class="pill" id="themeToggle" type="button">切换深色</button>
+    </div>
+  </header>
+
+  <!-- ============ 1. 动画演示 ============ -->
+  <section>
+    <h2>姿态切换动画</h2>
+    <p class="sub">闸门臂绕右端旋转，300ms <code>cubic-bezier(0.22, 1, 0.36, 1)</code>；页面进入时眨眼一次（120ms，不循环）。开启系统「减少动态效果」后全部降为瞬时。</p>
+    <div class="stage">
+      <div class="chip">
+        <svg id="demoMascot" data-pose="idle" width="160" height="160" viewBox="0 0 120 120" role="img" aria-label="GuardCart 吉祥物">
+          <path class="ring-open" d="M 96 60 A 36 36 0 1 1 78 28.8" fill="none" stroke="var(--ink)" stroke-width="16" stroke-linecap="round"/>
+          <circle class="ring-closed" cx="60" cy="60" r="36" fill="none" stroke="var(--ink)" stroke-width="16"/>
+          <g class="arm">
+            <line x1="96" y1="60" x2="62" y2="60" stroke="var(--ink)" stroke-width="16" stroke-linecap="round"/>
+            <circle cx="62" cy="60" r="5" fill="var(--brand)"/>
+          </g>
+          <circle class="eye-round blink" cx="45" cy="45" r="6" fill="var(--eye)"/>
+          <ellipse class="eye-squint blink" cx="45" cy="45" rx="6" ry="3" fill="var(--eye)"/>
+        </svg>
+      </div>
+      <div class="pose-btns">
+        <button class="pill active" type="button" data-pose-btn="idle">Idle · 默认（顶栏 / 空状态）</button>
+        <button class="pill" type="button" data-pose-btn="approve">Approve · 通过（臂抬 45°）</button>
+        <button class="pill" type="button" data-pose-btn="ask">Ask · 待确认（臂抬 22°）</button>
+        <button class="pill" type="button" data-pose-btn="block">Block · 拦截（闭口 + 臂放平）</button>
+        <span class="hint">演示吉祥物放在紫色芯片上：眼睛是 var(--bg) 镂空色，需要与 --bg 不同的摆放面才可见（见下方「眼睛可见性」）。</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 2. 四姿势矩阵 ============ -->
+  <section>
+    <h2>四姿势 × 双底色 × 三尺寸</h2>
+    <p class="sub">验收重点：24px 仍是 G；approve / ask / block 在 48px 一眼可辨；block 冷静不凶。</p>
+    <div id="matrix"></div>
+  </section>
+
+  <!-- ============ 3. 眼睛可见性 ============ -->
+  <section>
+    <h2>眼睛可见性（重要取舍）</h2>
+    <p class="sub">按设计稿，眼睛用 <code>var(--bg)</code> 画成「镂空色」：在与 --bg 相同的页面上眼睛不可见（身体轮廓不受影响）；
+      放在白色卡片上隐约可见，放在紫色强调芯片上最清晰。若希望任何底色下眼睛都可见，点右上角把眼睛切到 <code>var(--ink)</code>（两色方案），确认后我会同步改交付的 .svg 文件。</p>
+    <div class="surfaces" id="surfaces"></div>
+  </section>
+
+  <!-- ============ 4. Favicon ============ -->
+  <section>
+    <h2>Favicon（32×32 简化版）</h2>
+    <p class="sub">线宽加粗到 20、去掉橙色尖端、写死浅色系色值（favicon 无法继承页面 CSS 变量）；带米白圆角底，保证深色浏览器标签栏上也可辨认。</p>
+    <div class="fav-row">
+      <div class="fav-item"><img src="mascot-favicon.svg" width="16" height="16" alt="favicon 16" /><span class="num">16</span></div>
+      <div class="fav-item"><img src="mascot-favicon.svg" width="32" height="32" alt="favicon 32" /><span class="num">32</span></div>
+      <div class="fav-item"><img src="mascot-favicon.svg" width="64" height="64" alt="favicon 64" /><span class="num">64</span></div>
+    </div>
+  </section>
+
+  <!-- ============ 5. 用法 ============ -->
+  <section>
+    <h2>内联用法（HTML / React）</h2>
+    <pre class="usage" id="usagePre"></pre>
+  </section>
+
+</div>
+
+<script>
+/* ---------------- 姿势数据（与交付的 .svg 文件一致） ---------------- */
+var POSES = [
+  { key: "idle",    name: "Idle · 默认",      use: "顶栏头像 / 侧栏 logo / 空状态", closed: false, arm: [62, 60],      tip: [62, 60],      eye: { t: "circle",  cx: 45,   cy: 45,   r: 6 } },
+  { key: "approve", name: "Approve · 通过",   use: "Approved 结果旁（48px）",        closed: false, arm: [72, 36],      tip: [72, 36],      eye: { t: "ellipse", cx: 45,   cy: 45,   rx: 6, ry: 3 } },
+  { key: "ask",     name: "Ask · 待确认",     use: "Needs your approval 结果旁",     closed: false, arm: [64.5, 47.3],  tip: [64.5, 47.3],  eye: { t: "circle",  cx: 47.1, cy: 47.1, r: 6 } },
+  { key: "block",   name: "Block · 拦截",     use: "Blocked 结果旁（48px）",         closed: true,  arm: [62, 60],      tip: [62, 60],      eye: { t: "circle",  cx: 45,   cy: 45,   r: 6 } }
+];
+
+function poseSVG(p, size) {
+  var ring = p.closed
+    ? '<circle cx="60" cy="60" r="36" fill="none" stroke="var(--ink)" stroke-width="16"/>'
+    : '<path d="M 96 60 A 36 36 0 1 1 78 28.8" fill="none" stroke="var(--ink)" stroke-width="16" stroke-linecap="round"/>';
+  var eye = p.eye.t === "circle"
+    ? '<circle cx="' + p.eye.cx + '" cy="' + p.eye.cy + '" r="' + p.eye.r + '" fill="var(--eye)"/>'
+    : '<ellipse cx="' + p.eye.cx + '" cy="' + p.eye.cy + '" rx="' + p.eye.rx + '" ry="' + p.eye.ry + '" fill="var(--eye)"/>';
+  return '<svg width="' + size + '" height="' + size + '" viewBox="0 0 120 120">' +
+    ring +
+    '<line x1="96" y1="60" x2="' + p.arm[0] + '" y2="' + p.arm[1] + '" stroke="var(--ink)" stroke-width="16" stroke-linecap="round"/>' +
+    '<circle cx="' + p.tip[0] + '" cy="' + p.tip[1] + '" r="5" fill="var(--brand)"/>' +
+    eye +
+    '</svg>';
+}
+
+/* ---------------- 渲染姿势矩阵 ---------------- */
+var SIZES = [24, 48, 96];
+function sizeRow(p) {
+  return SIZES.map(function (s) {
+    return '<div class="size-item">' + poseSVG(p, s) + '<span class="num">' + s + '</span></div>';
+  }).join("");
+}
+document.getElementById("matrix").innerHTML = POSES.map(function (p) {
+  return '<div class="pose-card">' +
+    '<div class="pose-card-head"><h3>' + p.name + '</h3><span class="use">' + p.use + '</span></div>' +
+    '<div class="panels">' +
+      '<div class="panel light"><div class="panel-label">Light</div><div class="sizes">' + sizeRow(p) + '</div></div>' +
+      '<div class="panel dark"><div class="panel-label">Dark</div><div class="sizes">' + sizeRow(p) + '</div></div>' +
+    '</div></div>';
+}).join("");
+
+/* ---------------- 渲染摆放面演示（idle 48px） ---------------- */
+var idlePose = POSES[0];
+document.getElementById("surfaces").innerHTML =
+  '<div class="surface-chip s-bg">' + poseSVG(idlePose, 48) + '<span>--bg 页面</span></div>' +
+  '<div class="surface-chip s-card">' + poseSVG(idlePose, 48) + '<span>卡片 / 浮层</span></div>' +
+  '<div class="surface-chip s-accent">' + poseSVG(idlePose, 48) + '<span>紫色芯片</span></div>';
+
+/* ---------------- 姿态切换 ---------------- */
+var demo = document.getElementById("demoMascot");
+document.querySelectorAll("[data-pose-btn]").forEach(function (btn) {
+  btn.addEventListener("click", function () {
+    demo.setAttribute("data-pose", btn.getAttribute("data-pose-btn"));
+    document.querySelectorAll("[data-pose-btn]").forEach(function (b) { b.classList.toggle("active", b === btn); });
+  });
+});
+
+/* ---------------- 深浅色切换 ---------------- */
+var themeToggle = document.getElementById("themeToggle");
+themeToggle.addEventListener("click", function () {
+  var dark = document.documentElement.getAttribute("data-theme") === "dark";
+  document.documentElement.setAttribute("data-theme", dark ? "" : "dark");
+  themeToggle.textContent = dark ? "切换深色" : "切换浅色";
+});
+
+/* ---------------- 眼睛方案切换 ---------------- */
+var eyeToggle = document.getElementById("eyeToggle");
+var eyeInk = true;
+eyeToggle.addEventListener("click", function () {
+  eyeInk = !eyeInk;
+  document.documentElement.style.setProperty("--eye", eyeInk ? "var(--ink)" : "var(--bg)");
+  eyeToggle.textContent = eyeInk ? "眼睛：var(--ink)" : "眼睛：var(--bg)";
+});
+
+/* ---------------- 用法代码 ---------------- */
+document.getElementById("usagePre").textContent =
+'<!-- 1) 在全局 CSS 定义三个变量（深浅色自动切换） -->\n' +
+':root { --bg:#f7f5f2; --ink:#171416; --brand:#f28c28; }\n' +
+'[data-theme="dark"] { --bg:#0b0b0c; --ink:#f2f2f2; --brand:#ffa64d; }\n\n' +
+'<!-- 2) 内联粘贴 SVG，width/height 控制尺寸（24/28/48/96） -->\n' +
+'<svg width="28" height="28" viewBox="0 0 120 120" aria-hidden="true">\n' +
+'  <path d="M 96 60 A 36 36 0 1 1 78 28.8" fill="none"\n' +
+'        stroke="var(--ink)" stroke-width="16" stroke-linecap="round"/>\n' +
+'  <line x1="96" y1="60" x2="62" y2="60"\n' +
+'        stroke="var(--ink)" stroke-width="16" stroke-linecap="round"/>\n' +
+'  <circle cx="62" cy="60" r="5" fill="var(--brand)"/>\n' +
+'  <circle cx="45" cy="45" r="6" fill="var(--bg)"/>\n' +
+'</svg>\n\n' +
+'<!-- React：作为 JSX 组件内联即可，属性改驼峰 -->\n' +
+'<!-- strokeWidth={16} strokeLinecap="round" -->\n' +
+'<!-- 注意：<img src> 方式引用时 CSS 变量不生效，请用内联；favicon 用写死色值的 mascot-favicon.svg -->';
+</script>
+</body>
+</html>

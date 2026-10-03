@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">
+  <circle cx="60" cy="60" r="36" fill="none" stroke="var(--ink, #171416)" stroke-width="16"/>
+  <line x1="96" y1="60" x2="62" y2="60" stroke="var(--ink, #171416)" stroke-width="16" stroke-linecap="round"/>
+  <circle cx="62" cy="60" r="5" fill="var(--brand, #f28c28)"/>
+  <circle cx="45" cy="45" r="6" fill="var(--bg, #f7f5f2)"/>
+</svg>

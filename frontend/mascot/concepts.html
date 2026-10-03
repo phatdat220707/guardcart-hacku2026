@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>GuardCart · Gatekeeper G — 概念草图对比</title>
+<style>
+  :root {
+    --bg: #f7f5f2;
+    --ink: #171416;
+    --brand: #f28c28;
+    --accent: #6c4df6;
+    --line: #e3ded6;
+    --muted: #6f6a63;
+  }
+  [data-theme="dark"] {
+    --bg: #0b0b0c;
+    --ink: #f2f2f2;
+    --brand: #ffa64d;
+    --accent: #9d86ff;
+    --line: #26262a;
+    --muted: #8e8e94;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "Inter", -apple-system, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+    line-height: 1.6;
+  }
+  .wrap { max-width: 960px; margin: 0 auto; padding: 48px 24px 80px; }
+
+  header.top {
+    display: flex; justify-content: space-between; align-items: center;
+    padding-bottom: 20px; border-bottom: 1px solid var(--line); margin-bottom: 40px;
+  }
+  h1 { font-size: 20px; font-weight: 700; letter-spacing: 0.01em; }
+  h1 .dot { color: var(--brand); }
+  .theme-toggle {
+    appearance: none; border: none; cursor: pointer;
+    background: var(--ink); color: var(--bg);
+    font: inherit; font-size: 13px; font-weight: 600;
+    padding: 8px 20px; border-radius: 999px;
+  }
+
+  .intro { color: var(--muted); font-size: 14px; max-width: 640px; margin-bottom: 48px; }
+  .intro strong { color: var(--ink); font-weight: 600; }
+
+  section.concept { margin-bottom: 56px; }
+  .concept-head { display: flex; align-items: baseline; gap: 12px; margin-bottom: 6px; }
+  .concept-head .tag {
+    font-size: 12px; font-weight: 700; color: #fff;
+    background: var(--accent); border-radius: 999px; padding: 2px 12px;
+  }
+  .concept-head h2 { font-size: 17px; font-weight: 700; }
+  .rationale { color: var(--muted); font-size: 14px; margin-bottom: 20px; max-width: 640px; }
+
+  .panels { display: grid; grid-template-columns: 1fr 1fr; border: 1px solid var(--line); border-radius: 12px; overflow: hidden; }
+  .panel { padding: 28px 24px 22px; }
+  .panel.light { background: #f7f5f2; --ink: #171416; --bg: #f7f5f2; --brand: #f28c28; --muted: #6f6a63; border-right: 1px solid var(--line); }
+  .panel.dark  { background: #0b0b0c; --ink: #f2f2f2; --bg: #0b0b0c; --brand: #ffa64d; --muted: #8e8e94; }
+  .panel-label { font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-bottom: 20px; }
+  .sizes { display: flex; align-items: flex-end; gap: 48px; }
+  .size-item { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+  .size-item .num { font-size: 11px; color: var(--muted); font-variant-numeric: tabular-nums; }
+  .size-item svg { display: block; }
+
+  footer.note {
+    margin-top: 8px; padding-top: 20px; border-top: 1px solid var(--line);
+    color: var(--muted); font-size: 13px;
+  }
+  footer.note code { color: var(--ink); font-size: 12px; }
+
+  @media (max-width: 640px) {
+    .panels { grid-template-columns: 1fr; }
+    .panel.light { border-right: none; border-bottom: 1px solid var(--line); }
+    .sizes { gap: 32px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="top">
+    <h1>Gatekeeper G <span class="dot">·</span> 概念草图 A / B / C</h1>
+    <button class="theme-toggle" id="themeToggle" type="button">切换深色</button>
+  </header>
+
+  <p class="intro">
+    三个概念都是 <strong>「圆环身体 + 闸门臂 + 一只眼睛」</strong> 的字母 G，全部使用
+    <strong>--ink / --bg / --brand</strong> 三个 CSS 变量。每个概念在浅色与深背景下分别展示
+    24 / 48 / 96 px —— 重点检查 <strong>24px 时是否仍一眼是 G</strong>。
+  </p>
+
+  <!-- ============ 概念 A ============ -->
+  <section class="concept">
+    <div class="concept-head"><span class="tag">A</span><h2>经典守门人 Classic Gatekeeper</h2></div>
+    <p class="rationale">严格按设计稿骨架：48° 右上开口 + 30 单位水平闸门臂 + 左上独眼 —— 最标准的字母 G，识别成本最低，姿态动画的基线也最稳。</p>
+    <div class="panels">
+      <div class="panel light">
+        <div class="panel-label">Light</div>
+        <div class="sizes">
+          <div class="size-item">
+            <svg width="24" height="24" viewBox="0 0 120 120"><path d="M 96 60 A 36 36 0 1 1 84.1 33.3" fill="none" stroke="var(--ink)" stroke-width="16" stroke-linecap="round"/><line x1="96" y1="60" x2="66" y2="60" stroke="var(--ink)" stroke-width="16" stroke-linecap="round"/><circle cx="66" cy="60" r="5" fill="var(--brand)"/><circle cx="47" cy="44" r="6" fill="var(--bg)"/></svg>
+            <span class="num">24</span>
+          </div>
+          <div class="size-item">
+            <svg width="48" height="48" viewBox="0 0 120 120"><path d="M 96 60 A 36 36 0 1 1 84.1 33.3" fill="none" stroke="var(--ink)" stroke-width="16" stroke-linecap="round"/><line x1="96" y1="60" x2="66" y2="60" stroke="var(--ink)" stroke-width="16" stroke-linecap="round"/><circle cx="66" cy="60" r="5" fill="var(--brand)"/><circle cx="47" cy="44" r="6" fill="var(--bg)"/></svg>
+            <span class="num">48</span>
+          </div>
+          <div class="size-item">
+            <svg width="96" height="96" viewBox="0 0 120 120"><path d="M 96 60 A 36 36 0 1 1 84.1 33.3" fill="none" stroke="var(--ink)" stroke-width="16" stroke-linecap="round"/><line x1="96" y1="60" x2="66" y2="60" stroke="var(--ink)" stroke-width="16" stroke-linecap="round"/><circle cx="66" cy="60" r="5" fill="var(--brand)"/><circle cx="47" cy="44" r="6" fill="var(--bg)"/></svg>
+            <span class="num">96</span>
+          </div>
+        </div>
+      </div>
+      <div class="panel dark">
+        <div class="panel-label">Dark</div>
+        <div class="sizes">
+          <div class="size-item">
+            <svg width="24" height="24" viewBox="0 0 120 120"><path d="M 96 60 A 36 36 0 1 1 84.1 33.3" fill="none" stroke="var(--ink)" stroke-width="16" stroke-linecap="round"/><line x1="96" y1="60" x2="66" y2="60" stroke="var(--ink)" stroke-width="16" stroke-linecap="round"/><circle cx="66" cy="60" r="5" fill="var(--brand)"/><circle cx="47" cy="44" r="6" fill="var(--bg)"/></svg>
+            <span class="num">24</span>
+          </div>
+          <div class="size-item">
+            <svg width="48" height="48" viewBox="0 0 120 120"><path d="M 96 60 A 36 36 0 1 1 84.1 33.3" fill="none" stroke="var(--ink)" stroke-width="16" stroke-linecap="round"/><line x1="96" y1="60" x2="66" y2="60" stroke="var(--ink)" stroke-width="16" stroke-linecap="round"/><circle cx="66" cy="60" r="5" fill="var(--brand)"/><circle cx="47" cy="44" r="6" fill="var(--bg)"/></svg>
+            <span class="num">48</span>
+          </div>
+          <div class="size-item">
+            <svg width="96" height="96" viewBox="0 0 120 120"><path d="M 96 60 A 36 36 0 1 1 84.1 33.3" fill="none" stroke="var(--ink)" stroke-width="16" stroke-linecap="round"/><line x1="96" y1="60" x2="66" y2="60" stroke="var(--ink)" stroke-width="16" stroke-linecap="round"/><circle cx="66" cy="60" r="5" fill="var(--brand)"/><circle cx="47" cy="44" r="6" fill="var(--bg)"/></svg>
+            <span class="num">96</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 概念 B ============ -->
+  <section class="concept">
+    <div class="concept-head"><span class="tag">B</span><h2>大开口哨兵 Sentinel</h2></div>
+    <p class="rationale">开口加宽到 60°、闸门臂加长到 34 单位、眼睛略降 —— 牺牲一点圆润感，换取 24px 小尺寸下最强的 G 可读性（开口小、臂短在小尺寸会糊成一个圆）。</p>
+    <div class="panels">
+      <div class="panel light">
+        <div class="panel-label">Light</div>
+        <div class="sizes">
+          <div class="size-item">
+            <svg width="24" height="24" viewBox="0 0 120 120"><path d="M 96 60 A 36 36 0 1 1 78 28.8" fill="none" stroke="var(--ink)" stroke-width="16" stroke-linecap="round"/><line x1="96" y1="60" x2="62" y2="60" stroke="var(--ink)" stroke-width="16" stroke-linecap="round"/><circle cx="62" cy="60" r="5" fill="var(--brand)"/><circle cx="45" cy="45" r="6" fill="var(--bg)"/></svg>
+            <span class="num">24</span>
+          </div>
+          <div class="size-item">
+            <svg width="48" height="48" viewBox="0 0 120 120"><path d="M 96 60 A 36 36 0 1 1 78 28.8" fill="none" stroke="var(--ink)" stroke-width="16" stroke-linecap="round"/><line x1="96" y1="60" x2="62" y2="60" stroke="var(--ink)" stroke-width="16" stroke-linecap="round"/><circle cx="62" cy="60" r="5" fill="var(--brand)"/><circle cx="45" cy="45" r="6" fill="var(--bg)"/></svg>
+            <span class="num">48</span>
+          </div>
+          <div class="size-item">
+            <svg width="96" height="96" viewBox="0 0 120 120"><path d="M 96 60 A 36 36 0 1 1 78 28.8" fill="none" stroke="var(--ink)" stroke-width="16" stroke-linecap="round"/><line x1="96" y1="60" x2="62" y2="60" stroke="var(--ink)" stroke-width="16" stroke-linecap="round"/><circle cx="62" cy="60" r="5" fill="var(--brand)"/><circle cx="45" cy="45" r="6" fill="var(--bg)"/></svg>
+            <span class="num">96</span>
+          </div>
+        </div>
+      </div>
+      <div class="panel dark">
+        <div class="panel-label">Dark</div>
+        <div class="sizes">
+          <div class="size-item">
+            <svg width="24" height="24" viewBox="0 0 120 120"><path d="M 96 60 A 36 36 0 1 1 78 28.8" fill="none" stroke="var(--ink)" stroke-width="16" stroke-linecap="round"/><line x1="96" y1="60" x2="62" y2="60" stroke="var(--ink)" stroke-width="16" stroke-linecap="round"/><circle cx="62" cy="60" r="5" fill="var(--brand)"/><circle cx="45" cy="45" r="6" fill="var(--bg)"/></svg>
+            <span class="num">24</span>
+          </div>
+          <div class="size-item">
+            <svg width="48" height="48" viewBox="0 0 120 120"><path d="M 96 60 A 36 36 0 1 1 78 28.8" fill="none" stroke="var(--ink)" stroke-width="16" stroke-linecap="round"/><line x1="96" y1="60" x2="62" y2="60" stroke="var(--ink)" stroke-width="16" stroke-linecap="round"/><circle cx="62" cy="60" r="5" fill="var(--brand)"/><circle cx="45" cy="45" r="6" fill="var(--bg)"/></svg>
+            <span class="num">48</span>
+          </div>
+          <div class="size-item">
+            <svg width="96" height="96" viewBox="0 0 120 120"><path d="M 96 60 A 36 36 0 1 1 78 28.8" fill="none" stroke="var(--ink)" stroke-width="16" stroke-linecap="round"/><line x1="96" y1="60" x2="62" y2="60" stroke="var(--ink)" stroke-width="16" stroke-linecap="round"/><circle cx="62" cy="60" r="5" fill="var(--brand)"/><circle cx="45" cy="45" r="6" fill="var(--bg)"/></svg>
+            <span class="num">96</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 概念 C ============ -->
+  <section class="concept">
+    <div class="concept-head"><span class="tag">C</span><h2>预抬臂瞭望 Lookout</h2></div>
+    <p class="rationale">开口同 A，闸门臂常驻上抬 12°、眼睛上移 —— 气质更放松，像「随时准备放行」；代价是 idle 与 approve 的角度差变小，四姿态的对比会弱一些。</p>
+    <div class="panels">
+      <div class="panel light">
+        <div class="panel-label">Light</div>
+        <div class="sizes">
+          <div class="size-item">
+            <svg width="24" height="24" viewBox="0 0 120 120"><path d="M 96 60 A 36 36 0 1 1 84.1 33.3" fill="none" stroke="var(--ink)" stroke-width="16" stroke-linecap="round"/><line x1="96" y1="60" x2="64.7" y2="53.4" stroke="var(--ink)" stroke-width="16" stroke-linecap="round"/><circle cx="64.7" cy="53.4" r="5" fill="var(--brand)"/><circle cx="50" cy="42" r="6" fill="var(--bg)"/></svg>
+            <span class="num">24</span>
+          </div>
+          <div class="size-item">
+            <svg width="48" height="48" viewBox="0 0 120 120"><path d="M 96 60 A 36 36 0 1 1 84.1 33.3" fill="none" stroke="var(--ink)" stroke-width="16" stroke-linecap="round"/><line x1="96" y1="60" x2="64.7" y2="53.4" stroke="var(--ink)" stroke-width="16" stroke-linecap="round"/><circle cx="64.7" cy="53.4" r="5" fill="var(--brand)"/><circle cx="50" cy="42" r="6" fill="var(--bg)"/></svg>
+            <span class="num">48</span>
+          </div>
+          <div class="size-item">
+            <svg width="96" height="96" viewBox="0 0 120 120"><path d="M 96 60 A 36 36 0 1 1 84.1 33.3" fill="none" stroke="var(--ink)" stroke-width="16" stroke-linecap="round"/><line x1="96" y1="60" x2="64.7" y2="53.4" stroke="var(--ink)" stroke-width="16" stroke-linecap="round"/><circle cx="64.7" cy="53.4" r="5" fill="var(--brand)"/><circle cx="50" cy="42" r="6" fill="var(--bg)"/></svg>
+            <span class="num">96</span>
+          </div>
+        </div>
+      </div>
+      <div class="panel dark">
+        <div class="panel-label">Dark</div>
+        <div class="sizes">
+          <div class="size-item">
+            <svg width="24" height="24" viewBox="0 0 120 120"><path d="M 96 60 A 36 36 0 1 1 84.1 33.3" fill="none" stroke="var(--ink)" stroke-width="16" stroke-linecap="round"/><line x1="96" y1="60" x2="64.7" y2="53.4" stroke="var(--ink)" stroke-width="16" stroke-linecap="round"/><circle cx="64.7" cy="53.4" r="5" fill="var(--brand)"/><circle cx="50" cy="42" r="6" fill="var(--bg)"/></svg>
+            <span class="num">24</span>
+          </div>
+          <div class="size-item">
+            <svg width="48" height="48" viewBox="0 0 120 120"><path d="M 96 60 A 36 36 0 1 1 84.1 33.3" fill="none" stroke="var(--ink)" stroke-width="16" stroke-linecap="round"/><line x1="96" y1="60" x2="64.7" y2="53.4" stroke="var(--ink)" stroke-width="16" stroke-linecap="round"/><circle cx="64.7" cy="53.4" r="5" fill="var(--brand)"/><circle cx="50" cy="42" r="6" fill="var(--bg)"/></svg>
+            <span class="num">48</span>
+          </div>
+          <div class="size-item">
+            <svg width="96" height="96" viewBox="0 0 120 120"><path d="M 96 60 A 36 36 0 1 1 84.1 33.3" fill="none" stroke="var(--ink)" stroke-width="16" stroke-linecap="round"/><line x1="96" y1="60" x2="64.7" y2="53.4" stroke="var(--ink)" stroke-width="16" stroke-linecap="round"/><circle cx="64.7" cy="53.4" r="5" fill="var(--brand)"/><circle cx="50" cy="42" r="6" fill="var(--bg)"/></svg>
+            <span class="num">96</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="note">
+    实现说明：独立 .svg 文件内写作 <code>stroke="var(--ink, #171416)"</code> —— 内联进页面时页面变量生效（深色自动切换）；
+    经 <code>&lt;img&gt;</code> 引用或单独打开时使用回退色值。眼睛是镂空（<code>var(--bg)</code>），摆放处底色须与 <code>--bg</code> 一致。
+  </footer>
+
+</div>
+<script>
+  var toggle = document.getElementById('themeToggle');
+  toggle.addEventListener('click', function () {
+    var dark = document.documentElement.getAttribute('data-theme') === 'dark';
+    document.documentElement.setAttribute('data-theme', dark ? '' : 'dark');
+    toggle.textContent = dark ? '切换深色' : '切换浅色';
+  });
+</script>
+</body>
+</html>
