@@ -5,7 +5,7 @@
     "approval_threshold": 750.0,
     "max_points": 2000,
     "trusted_merchants_only": true,
-    "expiry": "2026-10-04T00:00:00Z"
+    "expiry": "2099-12-31T23:59:59+00:00"
   },
   "selected_product": {
     "id": "P07",
@@ -15,11 +15,11 @@
     "trusted": true,
     "price": 680.0,
     "shipping": 35.0,
-    "available": true,
+    "availability": true,
     "description": "Zero-drop natural motion running shoe."
   },
   "selected_payment": {
-    "name": "HSBC Visa Card",
+    "name": "HSBC Visa Card (DEMO)",
     "reward_value": 25.0,
     "fee": 0.0
   },
@@ -34,11 +34,11 @@
         "trusted": true,
         "price": 680.0,
         "shipping": 35.0,
-        "available": true,
+        "availability": true,
         "description": "Zero-drop natural motion running shoe."
       },
       "selected_payment": {
-        "name": "HSBC Visa Card",
+        "name": "HSBC Visa Card (DEMO)",
         "reward_value": 25.0,
         "fee": 0.0
       },
@@ -55,11 +55,11 @@
         "trusted": true,
         "price": 699.0,
         "shipping": 30.0,
-        "available": true,
+        "availability": true,
         "description": "Lightweight daily running shoe with high energy return."
       },
       "selected_payment": {
-        "name": "HSBC Visa Card",
+        "name": "HSBC Visa Card (DEMO)",
         "reward_value": 25.0,
         "fee": 0.0
       },
@@ -76,11 +76,11 @@
         "trusted": true,
         "price": 720.0,
         "shipping": 15.0,
-        "available": true,
+        "availability": true,
         "description": "Versatile all-black running sneakers."
       },
       "selected_payment": {
-        "name": "HSBC Visa Card",
+        "name": "HSBC Visa Card (DEMO)",
         "reward_value": 25.0,
         "fee": 0.0
       },
@@ -97,11 +97,11 @@
         "trusted": false,
         "price": 550.0,
         "shipping": 50.0,
-        "available": true,
+        "availability": true,
         "description": "Clearance discount running shoe."
       },
       "selected_payment": {
-        "name": "HSBC Visa Card",
+        "name": "HSBC Visa Card (DEMO)",
         "reward_value": 25.0,
         "fee": 0.0
       },
@@ -118,11 +118,11 @@
         "trusted": true,
         "price": 720.0,
         "shipping": 20.0,
-        "available": true,
+        "availability": true,
         "description": "Rugged hiking shoes with GORE-TEX lining."
       },
       "selected_payment": {
-        "name": "HSBC Visa Card",
+        "name": "HSBC Visa Card (DEMO)",
         "reward_value": 25.0,
         "fee": 0.0
       },
@@ -131,6 +131,40 @@
       "disqualify_reason": "Category mismatch"
     }
   ],
-  "explanation": "Selected '''SprintZero Minimalist''' (HK$680.0) with HK$35.0 shipping. Applying HSBC Visa Card saved HK$25.0, giving lowest effective cost HK$690.0. Filtered out 4 candidates.",
-  "defense_audit": "Product P08 tried prompt injection. Neutralized."
+  "explanation": "Selected 'SprintZero Minimalist' (HK$680.0) with HK$35.0 shipping. Applying HSBC Visa Card (DEMO) saved HK$25.0, giving lowest effective cost HK$690.0.",
+  "defense_audit": "Product P08 tried prompt injection. Neutralized.",
+  "policy_input": {
+    "mandate": {
+      "category": "running_shoes",
+      "max_spend": 800.0,
+      "approval_threshold": 750.0,
+      "max_points": 2000,
+      "trusted_merchants_only": true,
+      "expiry": "2099-12-31T23:59:59+00:00"
+    },
+    "product": {
+      "id": "P07",
+      "name": "SprintZero Minimalist",
+      "category": "running_shoes",
+      "merchant": "SportZone Official",
+      "trusted": true,
+      "price": 680.0,
+      "shipping": 35.0,
+      "availability": true,
+      "description": "Zero-drop natural motion running shoe."
+    },
+    "payment_options": [
+      {
+        "name": "HSBC Visa Card (DEMO)",
+        "reward_value": 25.0,
+        "fee": 0.0
+      },
+      {
+        "name": "FPS Standard (DEMO)",
+        "reward_value": 0.0,
+        "fee": 0.0
+      }
+    ],
+    "points_used": 0
+  }
 }

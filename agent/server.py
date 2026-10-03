@@ -1,19 +1,34 @@
 import os
 import sys
-from datetime import datetime, timezone
+from pathlib import Path
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-if BASE_DIR not in sys.path:
-    sys.path.insert(0, BASE_DIR)
+CURRENT_DIR = Path(__file__).resolve().parent
+REPO_ROOT = CURRENT_DIR.parent
+POLICY_DIR = REPO_ROOT / "policy"
 
-from agent_module import GuardCartAgent, PolicyEngineInput
+if str(CURRENT_DIR) not in sys.path:
+    sys.path.insert(0, str(CURRENT_DIR))
 
-app = FastAPI(title="GuardCart AI Agent Service")
+if str(POLICY_DIR) not in sys.path:
+    sys.path.insert(0, str(POLICY_DIR))
 
-# 启用 CORS 允许前端跨域
+from agent_module import GuardCartAgent
+
+# 导入 Dat 真实的策略引擎
+try:
+    from policy_engine import evaluate_transaction
+except ImportError:
+    import importlib.util
+    policy_spec = importlib.util.spec_from_file_location("policy_engine", POLICY_DIR / "policy_engine.py")
+    pe_mod = importlib.util.module_from_spec(policy_spec)
+    policy_spec.loader.exec_module(pe_mod)
+    evaluate_transaction = pe_mod.evaluate_transaction
+
+app = FastAPI(title="GuardCart AI Agent & Policy Integration Service")
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -22,39 +37,8 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-catalog_file = os.path.join(BASE_DIR, "catalog.json")
-agent = GuardCartAgent(catalog_file)
-
-def evaluate_policy_locally(p_input: PolicyEngineInput) -> dict:
-    try:
-        from engine import evaluate_policy
-        return evaluate_policy(p_input.model_dump())
-    except Exception:
-        pass
-
-    m = p_input.mandate
-    p = p_input.product
-    now = datetime.now(timezone.utc)
-    
-    if m.expiry:
-        try:
-            exp_dt = datetime.fromisoformat(m.expiry.replace("Z", "+00:00"))
-            if now > exp_dt:
-                return {"decision": "BLOCK", "reason": "Mandate expired"}
-        except Exception:
-            pass
-
-    if m.trusted_merchants_only and not p.trusted:
-        return {"decision": "BLOCK", "reason": "Merchant untrusted"}
-
-    total_charged = p.price + p.shipping
-    if total_charged > m.max_spend:
-        return {"decision": "BLOCK", "reason": f"Total charge HK${total_charged} exceeds limit HK${m.max_spend}"}
-
-    if total_charged > m.approval_threshold:
-        return {"decision": "ASK", "reason": f"Total charge HK${total_charged} exceeds approval threshold HK${m.approval_threshold}"}
-
-    return {"decision": "APPROVE", "reason": "Compliant with all mandate rules"}
+catalog_path = CURRENT_DIR / "catalog.json"
+agent = GuardCartAgent(str(catalog_path))
 
 class PromptRequest(BaseModel):
     prompt: str
@@ -63,10 +47,23 @@ class PromptRequest(BaseModel):
 def recommend(req: PromptRequest):
     agent_res = agent.process(req.prompt)
     resp = agent_res.model_dump()
+
     if agent_res.policy_input:
-        resp["policy_evaluation"] = evaluate_policy_locally(agent_res.policy_input)
+        # 调用 Dat 的真实策略引擎函数
+        policy_payload = agent_res.policy_input.model_dump()
+        evaluation = evaluate_transaction(policy_payload)
+        resp["policy_evaluation"] = evaluation
     else:
-        resp["policy_evaluation"] = {"decision": "BLOCK", "reason": "No valid product candidate"}
+        resp["policy_evaluation"] = {
+            "decision": {
+                "status": "BLOCK",
+                "final_total": 0.0,
+                "reason": "No valid products found matching criteria"
+            },
+            "selected_payment": None,
+            "payment_ranking": [],
+            "audit_events": []
+        }
     return resp
 
 if __name__ == "__main__":
