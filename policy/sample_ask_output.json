@@ -1,0 +1,91 @@
+{
+  "decision": {
+    "status": "ASK",
+    "product_id": "P02",
+    "final_total": 770.0,
+    "reason": [
+      "Final amount HK$770.00 is within the maximum budget but exceeds the automatic approval threshold of HK$750.00."
+    ]
+  },
+  "selected_payment": {
+    "name": "Card B (DEMO)",
+    "reward_value": 20,
+    "fee": 0,
+    "charged_total": 770.0,
+    "effective_cost": 750.0
+  },
+  "payment_ranking": [
+    {
+      "name": "Card B (DEMO)",
+      "reward_value": 20,
+      "fee": 0,
+      "charged_total": 770.0,
+      "effective_cost": 750.0
+    },
+    {
+      "name": "Card A (DEMO)",
+      "reward_value": 12,
+      "fee": 0,
+      "charged_total": 770.0,
+      "effective_cost": 758.0
+    },
+    {
+      "name": "FPS (DEMO)",
+      "reward_value": 0,
+      "fee": 0,
+      "charged_total": 770.0,
+      "effective_cost": 770.0
+    }
+  ],
+  "audit_events": [
+    {
+      "timestamp": "2026-10-03T10:37:57.657883+00:00",
+      "event": "Availability checked",
+      "rule": "product.availability == true",
+      "result": "PASS"
+    },
+    {
+      "timestamp": "2026-10-03T10:37:57.657898+00:00",
+      "event": "Mandate expiry checked",
+      "rule": "current_time <= mandate.expiry",
+      "result": "PASS"
+    },
+    {
+      "timestamp": "2026-10-03T10:37:57.657902+00:00",
+      "event": "Product category checked",
+      "rule": "product.category == mandate.category",
+      "result": "PASS"
+    },
+    {
+      "timestamp": "2026-10-03T10:37:57.657905+00:00",
+      "event": "Merchant trust checked",
+      "rule": "trusted merchant required",
+      "result": "PASS"
+    },
+    {
+      "timestamp": "2026-10-03T10:37:57.657912+00:00",
+      "event": "Final checkout amount calculated",
+      "rule": "price + shipping + payment fee",
+      "result": "HK$770.00"
+    },
+    {
+      "timestamp": "2026-10-03T10:37:57.657914+00:00",
+      "event": "Maximum spend checked",
+      "rule": "final_total <= mandate.max_spend",
+      "result": "PASS"
+    },
+    {
+      "timestamp": "2026-10-03T10:37:57.657916+00:00",
+      "event": "Loyalty-points limit checked",
+      "rule": "points_used <= mandate.max_points",
+      "result": "PASS"
+    },
+    {
+      "timestamp": "2026-10-03T10:37:57.657919+00:00",
+      "event": "Human approval threshold checked",
+      "rule": "final_total <= approval_threshold",
+      "result": "FAIL -> ASK"
+    }
+  ],
+  "data_notice": "Payment fees/rewards in this module are demo data unless separately verified and timestamped."
+}

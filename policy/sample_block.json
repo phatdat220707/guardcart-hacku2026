@@ -1,0 +1,26 @@
+{
+  "mandate": {
+    "category": "running_shoes",
+    "max_spend": 800,
+    "approval_threshold": 750,
+    "max_points": 2000,
+    "trusted_merchants_only": true,
+    "expiry": "2099-12-31T23:59:59+00:00"
+  },
+  "product": {
+    "id": "P03",
+    "name": "Running Shoe C",
+    "merchant": "Merchant C",
+    "trusted": true,
+    "price": 730,
+    "shipping": 90,
+    "category": "running_shoes",
+    "availability": true
+  },
+  "payment_options": [
+    {"name": "Card A (DEMO)", "reward_value": 12, "fee": 0},
+    {"name": "Card B (DEMO)", "reward_value": 20, "fee": 0},
+    {"name": "FPS (DEMO)", "reward_value": 0, "fee": 0}
+  ],
+  "points_used": 0
+}

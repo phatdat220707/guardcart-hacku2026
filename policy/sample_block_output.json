@@ -1,0 +1,79 @@
+{
+  "decision": {
+    "status": "BLOCK",
+    "product_id": "P03",
+    "final_total": 820.0,
+    "reason": [
+      "Final amount HK$820.00 exceeds authorized spending limit HK$800.00."
+    ]
+  },
+  "selected_payment": {
+    "name": "Card B (DEMO)",
+    "reward_value": 20,
+    "fee": 0,
+    "charged_total": 820.0,
+    "effective_cost": 800.0
+  },
+  "payment_ranking": [
+    {
+      "name": "Card B (DEMO)",
+      "reward_value": 20,
+      "fee": 0,
+      "charged_total": 820.0,
+      "effective_cost": 800.0
+    },
+    {
+      "name": "Card A (DEMO)",
+      "reward_value": 12,
+      "fee": 0,
+      "charged_total": 820.0,
+      "effective_cost": 808.0
+    },
+    {
+      "name": "FPS (DEMO)",
+      "reward_value": 0,
+      "fee": 0,
+      "charged_total": 820.0,
+      "effective_cost": 820.0
+    }
+  ],
+  "audit_events": [
+    {
+      "timestamp": "2026-10-03T10:37:58.318560+00:00",
+      "event": "Availability checked",
+      "rule": "product.availability == true",
+      "result": "PASS"
+    },
+    {
+      "timestamp": "2026-10-03T10:37:58.318575+00:00",
+      "event": "Mandate expiry checked",
+      "rule": "current_time <= mandate.expiry",
+      "result": "PASS"
+    },
+    {
+      "timestamp": "2026-10-03T10:37:58.318579+00:00",
+      "event": "Product category checked",
+      "rule": "product.category == mandate.category",
+      "result": "PASS"
+    },
+    {
+      "timestamp": "2026-10-03T10:37:58.318581+00:00",
+      "event": "Merchant trust checked",
+      "rule": "trusted merchant required",
+      "result": "PASS"
+    },
+    {
+      "timestamp": "2026-10-03T10:37:58.318588+00:00",
+      "event": "Final checkout amount calculated",
+      "rule": "price + shipping + payment fee",
+      "result": "HK$820.00"
+    },
+    {
+      "timestamp": "2026-10-03T10:37:58.318592+00:00",
+      "event": "Maximum spend checked",
+      "rule": "final_total <= mandate.max_spend",
+      "result": "FAIL"
+    }
+  ],
+  "data_notice": "Payment fees/rewards in this module are demo data unless separately verified and timestamped."
+}

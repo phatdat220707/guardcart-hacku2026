@@ -1,0 +1,17 @@
+[
+  {
+    "name": "Card A (DEMO)",
+    "reward_value": 12,
+    "fee": 0
+  },
+  {
+    "name": "Card B (DEMO)",
+    "reward_value": 20,
+    "fee": 0
+  },
+  {
+    "name": "FPS (DEMO)",
+    "reward_value": 0,
+    "fee": 0
+  }
+]
