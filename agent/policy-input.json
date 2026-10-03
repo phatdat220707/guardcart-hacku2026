@@ -5,18 +5,18 @@
     "approval_threshold": 750.0,
     "max_points": 2000,
     "trusted_merchants_only": true,
-    "expiry": "2026-10-04T00:00:00Z"
+    "expiry": "2099-12-31T23:59:59+00:00"
   },
   "product": {
-    "id": "P07",
-    "name": "SprintZero Minimalist",
+    "id": "P01",
+    "name": "Running Shoe A",
     "category": "running_shoes",
-    "merchant": "SportZone Official",
+    "merchant": "Merchant A",
     "trusted": true,
-    "price": 680.0,
-    "shipping": 35.0,
+    "price": 699.0,
+    "shipping": 30.0,
     "availability": true,
-    "description": "Zero-drop natural motion running shoe."
+    "description": "Lightweight trainer"
   },
   "payment_options": [
     {
