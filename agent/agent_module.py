@@ -9,7 +9,7 @@ class Mandate(BaseModel):
     approval_threshold: float
     max_points: int = 2000
     trusted_merchants_only: bool = True
-    expiry: Optional[str] = "2026-10-04T00:00:00Z"
+    expiry: Optional[str] = "2099-12-31T23:59:59+00:00"
 
 class Product(BaseModel):
     id: str
