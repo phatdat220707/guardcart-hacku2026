@@ -43,6 +43,7 @@ agent = GuardCartAgent(str(catalog_path))
 class PromptRequest(BaseModel):
     prompt: str
 
+@app.post("/evaluate")
 @app.post("/api/agent/recommend")
 def recommend(req: PromptRequest):
     agent_res = agent.process(req.prompt)
