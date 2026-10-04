@@ -1,12 +1,8 @@
 {
-  "mandate_id": "MND-2026-0928-882",
   "category": "running_shoes",
   "max_spend": 800.0,
-  "approval_above": 750.0,
+  "approval_threshold": 750.0,
+  "max_points": 2000,
   "trusted_merchants_only": true,
-  "max_points_burn": 2000,
-  "expiry": "2099-12-31T23:59:59+00:00",
-  "audit_trail_enforced": true,
-  "status": "SIGNED_IMMUTABLE",
-  "permission": "READ_ONLY_BY_AGENT"
+  "expiry": "2099-12-31T23:59:59+00:00"
 }
