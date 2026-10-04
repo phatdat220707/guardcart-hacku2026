@@ -56,8 +56,8 @@
           <label for="mandate-request">What should GuardCart buy?</label>
           <div class="ask-row">
             <input id="mandate-request" class="input input-lg" type="text"
-                   value="Buy me running shoes under HK$750."
-                   placeholder="e.g. Buy me running shoes under HK$750." />
+                   value="Buy me running shoes under HK$800. Ask me before spending above HK$750."
+                   placeholder="e.g. Buy me running shoes under HK$800." />
             <button class="btn btn-primary" type="button" onclick="GuardCartApp.startFromForm()">
               Start agent <span aria-hidden="true">↗</span>
             </button>
@@ -84,7 +84,7 @@
           </div>
           <div class="field">
             <label for="mandate-expiry">Mandate expires</label>
-            <input id="mandate-expiry" class="input" type="datetime-local" value="2026-10-05T23:59" />
+            <input id="mandate-expiry" class="input" type="datetime-local" value="2099-12-31T23:59" />
           </div>
         </div>
         <hr class="hr" />
@@ -181,11 +181,11 @@
   <!-- ===================== 演示控制条 ===================== -->
   <footer class="demo-bar">
     <div class="demo-inner">
-      <span class="demo-label">scenarious</span>
+      <span class="demo-label">Scenarios</span>
       <button class="btn btn-ghost btn-sm" type="button" onclick="GuardCartApp.runDemo('success')"><span class="dot dot-success"></span>Success HK$729</button>
       <button class="btn btn-ghost btn-sm" type="button" onclick="GuardCartApp.runDemo('approval')"><span class="dot dot-warning"></span>Approval HK$770</button>
       <button class="btn btn-ghost btn-sm" type="button" onclick="GuardCartApp.runDemo('blocked')"><span class="dot dot-error"></span>Blocked HK$820</button>
-      <button class="btn btn-ghost btn-sm" type="button" onclick="GuardCartApp.runLiveApi(this)"><span class="dot dot-live"></span>Live API 测试</button>
+      <button class="btn btn-ghost btn-sm" type="button" onclick="GuardCartApp.runLiveApi(this)"><span class="dot dot-live"></span>Live API Test (local only)</button>
       <button class="btn btn-ghost btn-sm" type="button" onclick="GuardCartApp.resetDemo()">Reset</button>
       <span id="live-status" class="live-status" role="status"></span>
     </div>

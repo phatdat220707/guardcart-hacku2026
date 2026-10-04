@@ -180,14 +180,14 @@
     });
   }
 
-  /** "Live API 测试" button — real POST to agent/server.py. */
+  /** "Live API Test (local only)" button — real POST to agent/server.py. */
   function runLiveApi(btn) {
     var statusEl = $("live-status");
     statusEl.className = "live-status";
     statusEl.textContent = "Requesting " + global.AgentData.LIVE_URL + " …";
     btn.disabled = true;
     var originalLabel = btn.innerHTML;
-    btn.innerHTML = '<span class="dot dot-live dot-pulse"></span>Live API 请求中…';
+    btn.innerHTML = '<span class="dot dot-live dot-pulse"></span>Requesting Live API…';
 
     runPipeline(
       function () { return global.AgentData.runLive(); },
@@ -195,8 +195,8 @@
         btn.disabled = false;
         btn.innerHTML = originalLabel;
         statusEl.className = "live-status is-error";
-        statusEl.textContent = "Live API 连接失败（" + ((err && err.message) || err) +
-          "）。请确认已在项目根目录运行 python agent/server.py（端口 8001）。";
+        statusEl.textContent = "Live API connection failed (" + ((err && err.message) || err) +
+          "). Start agent/server.py from the project root on port 8001, then try again.";
       },
       function () {
         btn.disabled = false;
