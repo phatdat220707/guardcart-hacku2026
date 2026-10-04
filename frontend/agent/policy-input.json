@@ -1,0 +1,34 @@
+{
+  "mandate": {
+    "category": "running_shoes",
+    "max_spend": 800.0,
+    "approval_threshold": 750.0,
+    "max_points": 2000,
+    "trusted_merchants_only": true,
+    "expiry": "2099-12-31T23:59:59+00:00"
+  },
+  "product": {
+    "id": "P01",
+    "name": "Running Shoe A",
+    "category": "running_shoes",
+    "merchant": "Merchant A",
+    "trusted": true,
+    "price": 699.0,
+    "shipping": 30.0,
+    "availability": true,
+    "description": "Lightweight trainer"
+  },
+  "payment_options": [
+    {
+      "name": "HSBC Visa Card (DEMO)",
+      "reward_value": 25.0,
+      "fee": 0.0
+    },
+    {
+      "name": "FPS Standard (DEMO)",
+      "reward_value": 0.0,
+      "fee": 0.0
+    }
+  ],
+  "points_used": 0
+}

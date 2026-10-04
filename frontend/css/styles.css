@@ -36,7 +36,7 @@ body {
   background: var(--bg);
   color: var(--text);
   font-family: Inter, "Noto Sans SC", "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
-  font-size: 15px;
+  font-size: clamp(15px, 0.35vw + 12px, 16.5px);
   line-height: 1.6;
   transition: background-color .35s var(--ease), color .35s var(--ease);
 }
@@ -191,9 +191,9 @@ a { color: inherit; }
 }
 
 /* ---------------- 首屏 ---------------- */
-.hero { padding: 72px 0 40px; max-width: 760px; }
+.hero { padding: clamp(72px, 6vw, 104px) 0 40px; max-width: 760px; }
 .hero-title {
-  font-size: clamp(40px, 5.2vw, 60px);
+  font-size: clamp(40px, 5.2vw, 66px);
   font-weight: 600;
   line-height: 1.05;
   margin-bottom: 20px;
@@ -224,10 +224,10 @@ body.motion-ok .hero-title .w:nth-child(7) { animation-delay: 360ms; }
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius-card);
-  padding: 28px;
+  padding: clamp(28px, 2.3vw, 38px);
 }
 .card + .card { margin-top: 16px; }
-.card-title { font-size: 20px; font-weight: 600; margin-bottom: 4px; }
+.card-title { font-size: clamp(20px, 1.2vw, 22px); font-weight: 600; margin-bottom: 4px; }
 .card-sub { font-size: 13px; color: var(--text-secondary); }
 
 /* ---------------- 表单 ---------------- */
@@ -335,17 +335,17 @@ body.motion-ok .hero-title .w:nth-child(7) { animation-delay: 360ms; }
   flex-wrap: wrap;
   margin-bottom: 24px;
 }
-.section-title { font-size: clamp(28px, 3.2vw, 40px); font-weight: 600; line-height: 1.12; }
+.section-title { font-size: clamp(28px, 3.2vw, 46px); font-weight: 600; line-height: 1.12; }
 .section-sub { font-size: 15px; color: var(--text-secondary); max-width: 560px; }
 .product-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
+  gap: clamp(16px, 1.3vw, 24px);
 }
 .product-card { display: flex; flex-direction: column; gap: 0; position: relative; }
 .product-card.recommended { border-color: var(--text); }
 .product-card .p-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; margin-bottom: 2px; }
-.product-card h3 { font-size: 20px; font-weight: 600; }
+.product-card h3 { font-size: clamp(20px, 1.25vw, 24px); font-weight: 600; }
 .product-card .p-id { font-size: 12px; color: var(--text-secondary); }
 .product-card .p-desc { font-size: 13px; color: var(--text-secondary); margin: 6px 0 14px; }
 .product-card .p-merchant { display: flex; justify-content: space-between; align-items: center; font-size: 13px; margin-bottom: 14px; }
@@ -358,7 +358,7 @@ body.motion-ok .hero-title .w:nth-child(7) { animation-delay: 360ms; }
   display: flex; justify-content: space-between; align-items: baseline;
   font-size: 15px; font-weight: 600;
 }
-.price-total .num { font-size: 32px; font-weight: 600; letter-spacing: -0.02em; }
+.price-total .num { font-size: clamp(32px, 2.1vw, 42px); font-weight: 600; letter-spacing: -0.02em; }
 .product-card.recommended .price-total .num { color: var(--accent); }
 .reco-reason {
   margin-top: 14px;
@@ -372,7 +372,7 @@ body.motion-ok .hero-title .w:nth-child(7) { animation-delay: 360ms; }
 .zone-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
+  gap: clamp(16px, 1.3vw, 24px);
   margin-bottom: 16px;
 }
 .zone { padding: 20px; }
@@ -412,7 +412,7 @@ body.motion-ok .hero-title .w:nth-child(7) { animation-delay: 360ms; }
   border: 1px solid var(--border);
   border-radius: var(--radius-card);
   background: var(--surface);
-  padding: 32px;
+  padding: clamp(32px, 2.6vw, 44px);
   margin-bottom: 16px;
 }
 .decision .mascot { flex-shrink: 0; }
@@ -420,7 +420,7 @@ body.motion-ok .hero-title .w:nth-child(7) { animation-delay: 360ms; }
 .decision-ask { background: var(--warning-tint); border-color: var(--warning); }
 .decision-block { background: var(--error-tint); border-color: var(--error); }
 .decision .d-main { flex: 1; min-width: 0; }
-.decision .d-title { font-size: clamp(28px, 3.2vw, 40px); font-weight: 600; line-height: 1.12; margin: 10px 0 6px; }
+.decision .d-title { font-size: clamp(28px, 3.2vw, 44px); font-weight: 600; line-height: 1.12; margin: 10px 0 6px; }
 .decision .d-sub { font-size: 15px; color: var(--text-secondary); max-width: 520px; }
 .decision .d-note {
   margin-top: 14px;
@@ -430,7 +430,7 @@ body.motion-ok .hero-title .w:nth-child(7) { animation-delay: 360ms; }
   color: var(--text-secondary);
 }
 .decision .d-num { text-align: right; flex-shrink: 0; }
-.decision .d-num .big { font-size: clamp(40px, 5vw, 60px); font-weight: 600; letter-spacing: -0.02em; line-height: 1; }
+.decision .d-num .big { font-size: clamp(40px, 5vw, 68px); font-weight: 600; letter-spacing: -0.02em; line-height: 1; }
 .decision .d-num .cap { font-size: 13px; color: var(--text-secondary); margin-top: 6px; }
 .decision-actions { display: flex; gap: 10px; margin-top: 18px; flex-wrap: wrap; }
 
@@ -446,7 +446,7 @@ body.motion-ok .hero-title .w:nth-child(7) { animation-delay: 360ms; }
 }
 .stat { padding: 20px 24px; border-left: 1px solid var(--border); }
 .stat:first-child { border-left: none; }
-.stat .v { font-size: 32px; font-weight: 600; letter-spacing: -0.02em; line-height: 1.1; }
+.stat .v { font-size: clamp(32px, 2.1vw, 40px); font-weight: 600; letter-spacing: -0.02em; line-height: 1.1; }
 .stat .k { font-size: 13px; color: var(--text-secondary); margin-top: 4px; }
 
 /* 支付选项：行选中 = 2px 竖线 + muted 底 */
@@ -508,8 +508,10 @@ body.motion-ok .hero-title .w:nth-child(7) { animation-delay: 360ms; }
   background: var(--bg);
   border-top: 1px solid var(--border);
   z-index: 60;
+  padding-bottom: env(safe-area-inset-bottom, 0px);
 }
 .demo-inner {
+  position: relative;
   max-width: 1120px;
   margin: 0 auto;
   padding: 12px 32px;
@@ -537,16 +539,175 @@ main { padding-bottom: 120px; }
   .decision { flex-direction: column; align-items: flex-start; }
   .decision .d-num { text-align: left; }
 }
+/* ---------------- 手机自适应 ---------------- */
 @media (max-width: 600px) {
+  html, body { overflow-x: hidden; }
   .wrap { padding-left: 16px; padding-right: 16px; }
-  .topbar-inner { padding-left: 16px; padding-right: 16px; }
-  .demo-inner { padding-left: 16px; padding-right: 16px; }
+
+  /* 顶栏：收窄间距，隐藏次要元素，保证品牌 / 数据标签 / 主题切换不换行 */
+  .topbar-inner { padding: 10px 16px; gap: 10px; }
+  .brand { font-size: 16px; gap: 8px; }
+  .topbar-right { gap: 8px; }
+  .tag-hide-sm, .avatar-hide-sm { display: none; }
+  .tag { height: 24px; padding: 0 10px; font-size: 11px; gap: 5px; }
+  #theme-toggle { height: 34px; padding: 0 12px; font-size: 12px; }
+
+  /* 步骤条：单行横向滑动，不挤占纵向空间 */
+  .stepper {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    margin: 0 -16px;
+    padding: 14px 16px 10px;
+    gap: 7px;
+  }
+  .stepper::-webkit-scrollbar { display: none; }
+  .stepper li { flex-shrink: 0; height: 32px; padding: 0 12px; font-size: 12px; gap: 6px; }
+
+  /* 首屏 */
+  .hero { padding: 36px 0 24px; }
+  .hero-title { font-size: clamp(30px, 8.5vw, 38px); }
+  .hero-sub { font-size: 14px; }
+
+  /* 卡片与表单：输入框 16px 防止 iOS Safari 聚焦自动放大 */
+  .card { padding: 18px; }
+  .card-title { font-size: 18px; }
   .form-grid { grid-template-columns: 1fr; }
-  .hero { padding: 48px 0 32px; }
-  .card { padding: 20px; }
-  .decision { padding: 20px; }
+  .input { font-size: 16px; }
+  .input-lg { height: 52px; }
   .ask-row { flex-direction: column; }
   .ask-row .btn { width: 100%; }
+  .mandate-summary { flex-direction: column; gap: 6px; }
+
+  /* 各区块标题与主按钮：按钮整行，拇指热区 */
+  .section-head { margin-bottom: 18px; }
+  .section-title { font-size: clamp(24px, 7vw, 30px); }
+  .section-sub { font-size: 14px; }
+  .section-head .btn { width: 100%; }
+  .actions-end { flex-direction: column; align-items: stretch; }
+  .actions-end .btn,
+  .actions-between .btn { width: 100%; }
+  .actions-between { flex-direction: column; }
+
+  /* 策略三栏已在 900 变单栏，这里收窄内边距 */
+  .zone { padding: 16px; }
+  .zone p { font-size: 14px; }
+  .check-item { flex-wrap: wrap; row-gap: 2px; padding: 12px 0; }
+  .check-item .cn, .check-item .cd { font-size: 14px; }
+  .check-item .cr { margin-left: auto; }
+
+  /* 商品卡 */
+  .product-card h3 { font-size: 18px; }
+  .price-total .num { font-size: 28px; }
+
+  /* 决策横幅与数字统计 */
+  .decision { padding: 20px 18px; gap: 16px; }
+  .decision .d-title { font-size: clamp(24px, 7vw, 30px); }
+  .decision .d-sub { font-size: 14px; }
+  .decision .d-num .big { font-size: clamp(34px, 9.5vw, 40px); }
+  .decision-actions .btn { width: 100%; }
+  .stat { padding: 14px 16px; }
+  .stat .v { font-size: 24px; }
+  .stat .k { font-size: 12px; }
+
+  /* 支付行允许折行，费用不被挤压 */
+  .pay-row { flex-wrap: wrap; row-gap: 2px; padding: 13px 12px; }
+  .pay-row .pc { margin-left: auto; }
+
+  /* 底部演示条：单行横向滑动 + 状态文字浮在条上方 */
+  .demo-inner {
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding: 10px 16px;
+    gap: 8px;
+  }
+  .demo-inner::-webkit-scrollbar { display: none; }
+  .demo-inner .btn-sm { flex: 0 0 auto; height: 40px; padding: 0 14px; }
+  .demo-label { display: none; }
+  /* 状态条用 fixed：demo-inner 的 overflow:auto 会裁掉绝对定位子元素 */
+  .live-status {
+    position: fixed;
+    left: 0; right: 0;
+    bottom: calc(60px + env(safe-area-inset-bottom, 0px));
+    max-width: none;
+    padding: 8px 16px;
+    border-top: 1px solid var(--border);
+    background: var(--bg);
+    font-size: 12px;
+    z-index: 61;
+  }
+  main { padding-bottom: calc(66px + env(safe-area-inset-bottom, 0px)); }
+}
+
+@media (max-width: 380px) {
+  .wrap { padding-left: 12px; padding-right: 12px; }
+  .topbar-inner { padding-left: 12px; padding-right: 12px; }
+  .stepper { margin-left: -12px; margin-right: -12px; padding-left: 12px; padding-right: 12px; }
+  .card { padding: 16px; }
+  .hero-title { font-size: clamp(27px, 8vw, 32px); }
+  .stat { padding: 12px; }
+  .stat .v { font-size: 21px; }
+  .demo-inner { padding-left: 12px; padding-right: 12px; }
+  .demo-inner .btn-sm { padding: 0 12px; font-size: 12px; }
+  .live-status { padding-left: 12px; padding-right: 12px; }
+}
+
+/* ---------------- 桌面端左侧导航（≥860px：AI 工具式固定侧栏） ---------------- */
+@media (min-width: 860px) {
+  :root { --sidebar-w: clamp(232px, 15.5vw, 264px); }
+  .demo-bar {
+    top: 0; bottom: 0; left: 0; right: auto;
+    width: var(--sidebar-w);
+    border-top: none;
+    border-right: 1px solid var(--border);
+    padding-bottom: 0;
+  }
+  .demo-inner {
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+    height: 100%;
+    padding: 22px 16px;
+    gap: 8px;
+  }
+  .demo-label {
+    display: block;
+    margin: 0 10px 10px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+  }
+  .demo-inner .btn-sm { justify-content: flex-start; height: 42px; padding: 0 14px; font-size: 14px; }
+  /* Reset 沉到侧栏底部，live 状态作为其下方的说明行 */
+  .demo-inner .btn:last-of-type { margin-top: auto; }
+  .live-status {
+    position: static;
+    max-width: none;
+    padding: 8px 10px 0;
+    font-size: 12px;
+    text-align: left;
+  }
+  /* 放开写死的 1120px 内容上限，随屏宽流式填充（留出舒服的页边距）；
+     超宽屏（≥2K）加 1720px 上限，避免表单/卡片被过度拉长 */
+  .topbar { margin-left: var(--sidebar-w); }
+  .topbar-inner {
+    max-width: 1720px;
+    padding-left: clamp(32px, 3.4vw, 88px);
+    padding-right: clamp(32px, 3.4vw, 88px);
+  }
+  .wrap {
+    margin-left: var(--sidebar-w);
+    max-width: 1720px;
+    padding-left: clamp(32px, 3.4vw, 88px);
+    padding-right: clamp(32px, 3.4vw, 88px);
+  }
+  main { padding-bottom: 56px; }
 }
 
 /* ---------------- 减少动态效果 ---------------- */
@@ -574,6 +735,7 @@ main { padding-bottom: 120px; }
   max-width: 460px;
   text-align: left;
 }
+.live-status:empty { display: none; }
 .live-status.is-ok { color: var(--success); }
 .live-status.is-error { color: var(--error); }
 .product-card.disqualified { opacity: 0.62; }

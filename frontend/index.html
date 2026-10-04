@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>GuardCart — AI shops. You stay in control.</title>
   <link rel="icon" type="image/svg+xml" href="mascot/mascot-favicon.svg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -21,10 +21,10 @@
         GuardCart
       </button>
       <div class="topbar-right">
-        <span class="tag">Demo payment data</span>
+        <span class="tag tag-hide-sm">Demo payment data</span>
         <span class="tag" id="data-source-tag">DATA / …</span>
         <button class="btn btn-ghost btn-sm" id="theme-toggle" type="button">Dark mode</button>
-        <span class="avatar-chip" id="topbar-avatar" aria-hidden="true"></span>
+        <span class="avatar-chip avatar-hide-sm" id="topbar-avatar" aria-hidden="true"></span>
       </div>
     </div>
   </header>
@@ -181,7 +181,7 @@
   <!-- ===================== 演示控制条 ===================== -->
   <footer class="demo-bar">
     <div class="demo-inner">
-      <span class="demo-label">Demo scenarios</span>
+      <span class="demo-label">scenarious</span>
       <button class="btn btn-ghost btn-sm" type="button" onclick="GuardCartApp.runDemo('success')"><span class="dot dot-success"></span>Success HK$729</button>
       <button class="btn btn-ghost btn-sm" type="button" onclick="GuardCartApp.runDemo('approval')"><span class="dot dot-warning"></span>Approval HK$770</button>
       <button class="btn btn-ghost btn-sm" type="button" onclick="GuardCartApp.runDemo('blocked')"><span class="dot dot-error"></span>Blocked HK$820</button>
