@@ -1,8 +1,8 @@
-\# GuardCart
+﻿# GuardCart
 
 
 
-\*\*A policy-controlled shopping agent for HacKU 2026\*\*
+**A policy-controlled shopping agent for HacKU 2026**
 
 
 
@@ -14,13 +14,13 @@ GuardCart demonstrates how an AI shopping agent can search and rank products whi
 
 
 
-\## Public Demo
+## Public Demo
 
 
 
-\- Interactive demo: https://statuesque-squirrel-5ac82e.netlify.app
+- Interactive demo: https://statuesque-squirrel-5ac82e.netlify.app
 
-\- Source repository: https://github.com/phatdat220707/guardcart-hacku2026
+- Source repository: https://github.com/phatdat220707/guardcart-hacku2026
 
 
 
@@ -28,7 +28,7 @@ The public site uses deterministic scenarios and simulated products, merchants, 
 
 
 
-\## Why GuardCart
+## Why GuardCart
 
 
 
@@ -44,37 +44,37 @@ GuardCart separates product reasoning from authorization:
 
 User request
 
-&#x20;   |
+    |
 
-&#x20;   v
+    v
 
 Agent
 
 Deterministic intent parsing, product filtering and cost ranking
 
-&#x20;   |
+    |
 
-&#x20;   v
+    v
 
 Candidate transaction
 
-&#x20;   |
+    |
 
-&#x20;   v
+    v
 
 Policy Engine
 
 Availability, expiry, category, merchant, spending and approval checks
 
-&#x20;   |
+    |
 
-&#x20;   v
+    v
 
 APPROVE | ASK | BLOCK
 
-&#x20;   |
+    |
 
-&#x20;   v
+    v
 
 Explanation and audit events
 
@@ -86,7 +86,7 @@ The Agent cannot modify or bypass the mandate constraints during policy evaluati
 
 
 
-\## Three Demo Scenarios
+## Three Demo Scenarios
 
 
 
@@ -94,15 +94,15 @@ All scenarios use:
 
 
 
-\- Maximum spending limit: HK$800
+- Maximum spending limit: HK$800
 
-\- Human approval threshold: HK$750
+- Human approval threshold: HK$750
 
-\- Trusted merchants only
+- Trusted merchants only
 
-\- Running-shoes category
+- Running-shoes category
 
-\- Maximum loyalty points usage: 2,000
+- Maximum loyalty points usage: 2,000
 
 
 
@@ -122,27 +122,27 @@ Rewards affect payment ranking only. They do not reduce the charged total used f
 
 
 
-\## Implemented in the MVP
+## Implemented in the MVP
 
 
 
-\### Agent module
+### Agent module
 
 
 
-\- Deterministic natural-language prompt parsing
+- Deterministic natural-language prompt parsing
 
-\- Catalogue filtering and trusted-merchant checks
+- Catalogue filtering and trusted-merchant checks
 
-\- Product and payment-option ranking
+- Product and payment-option ranking
 
-\- Effective-cost calculation
+- Effective-cost calculation
 
-\- Prompt-injection detection for untrusted product descriptions
+- Prompt-injection detection for untrusted product descriptions
 
-\- Structured Policy Engine handoff
+- Structured Policy Engine handoff
 
-\- FastAPI endpoint at `POST /api/agent/recommend`
+- FastAPI endpoint at `POST /api/agent/recommend`
 
 
 
@@ -150,7 +150,7 @@ The current MVP does not call an external LLM API.
 
 
 
-\### Policy Engine
+### Policy Engine
 
 
 
@@ -158,21 +158,21 @@ The Policy Engine checks:
 
 
 
-\- Product availability
+- Product availability
 
-\- Mandate expiry
+- Mandate expiry
 
-\- Product category
+- Product category
 
-\- Merchant trust
+- Merchant trust
 
-\- Final charged total
+- Final charged total
 
-\- Maximum spending limit
+- Maximum spending limit
 
-\- Loyalty-points usage
+- Loyalty-points usage
 
-\- Human approval threshold
+- Human approval threshold
 
 
 
@@ -180,41 +180,41 @@ It produces:
 
 
 
-\- Decision status
+- Decision status
 
-\- Final charged total
+- Final charged total
 
-\- Human-readable reasons
+- Human-readable reasons
 
-\- Selected payment candidate
+- Selected payment candidate
 
-\- Payment ranking
+- Payment ranking
 
-\- Rule-level audit events
-
-
-
-\### Frontend
+- Rule-level audit events
 
 
 
-\- Mandate input and validation
-
-\- Product comparison
-
-\- Policy-check explanation
-
-\- `APPROVE`, `ASK`, and `BLOCK` screens
-
-\- Audit timeline
-
-\- Public deterministic scenarios
-
-\- Optional local Live API integration
+### Frontend
 
 
 
-\## Repository Structure
+- Mandate input and validation
+
+- Product comparison
+
+- Policy-check explanation
+
+- `APPROVE`, `ASK`, and `BLOCK` screens
+
+- Audit timeline
+
+- Public deterministic scenarios
+
+- Optional local Live API integration
+
+
+
+## Repository Structure
 
 
 
@@ -222,27 +222,27 @@ It produces:
 
 guardcart-hacku2026/
 
-├── agent/       Agent, catalogue, fixtures and FastAPI service
+â”œâ”€â”€ agent/       Agent, catalogue, fixtures and FastAPI service
 
-├── frontend/    HTML, CSS and JavaScript demonstration interface
+â”œâ”€â”€ frontend/    HTML, CSS and JavaScript demonstration interface
 
-├── policy/      Deterministic Policy Engine and tests
+â”œâ”€â”€ policy/      Deterministic Policy Engine and tests
 
-├── mandate.json Shared example mandate
+â”œâ”€â”€ mandate.json Shared example mandate
 
-├── README.md
+â”œâ”€â”€ README.md
 
-└── .gitignore
+â””â”€â”€ .gitignore
 
 ```
 
 
 
-\## Run Locally on Windows
+## Run Locally on Windows
 
 
 
-\### 1. Create the Agent environment
+### 1. Create the Agent environment
 
 
 
@@ -252,21 +252,21 @@ From the repository root:
 
 ```powershell
 
-py -m venv agent\\.venv
+py -m venv agent\.venv
 
-.\\agent\\.venv\\Scripts\\python.exe -m pip install -r agent\\requirements.txt
+.\agent\.venv\Scripts\python.exe -m pip install -r agent\requirements.txt
 
 ```
 
 
 
-\### 2. Run the Policy Engine tests
+### 2. Run the Policy Engine tests
 
 
 
 ```powershell
 
-.\\agent\\.venv\\Scripts\\python.exe policy\\test\_policy\_engine.py
+.\agent\.venv\Scripts\python.exe policy\test_policy_engine.py
 
 ```
 
@@ -284,25 +284,25 @@ Expected result:
 
 
 
-\### 3. Run the Agent smoke test
+### 3. Run the Agent smoke test
 
 
 
 ```powershell
 
-.\\agent\\.venv\\Scripts\\python.exe agent\\run\_test.py
+.\agent\.venv\Scripts\python.exe agent\run_test.py
 
 ```
 
 
 
-\### 4. Start the Agent and Policy API
+### 4. Start the Agent and Policy API
 
 
 
 ```powershell
 
-.\\agent\\.venv\\Scripts\\python.exe agent\\server.py
+.\agent\.venv\Scripts\python.exe agent\server.py
 
 ```
 
@@ -332,7 +332,7 @@ http://127.0.0.1:8001/docs
 
 
 
-\### 5. Serve the frontend
+### 5. Serve the frontend
 
 
 
@@ -342,7 +342,7 @@ Open another PowerShell window at the repository root:
 
 ```powershell
 
-.\\agent\\.venv\\Scripts\\python.exe -m http.server 8899
+.\agent\.venv\Scripts\python.exe -m http.server 8899
 
 ```
 
@@ -364,25 +364,25 @@ The three deterministic scenarios work without the Live API. The local Live API 
 
 
 
-\## Testing Evidence
+## Testing Evidence
 
 
 
-\- Policy Engine unit scenarios: `7/7` passed
+- Policy Engine unit scenarios: `7/7` passed
 
-\- HK$729 fixture: `APPROVE`
+- HK$729 fixture: `APPROVE`
 
-\- HK$770 fixture: `ASK`
+- HK$770 fixture: `ASK`
 
-\- HK$820 fixture: `BLOCK`
+- HK$820 fixture: `BLOCK`
 
-\- Agent-to-Policy Engine API smoke test: passed
+- Agent-to-Policy Engine API smoke test: passed
 
-\- Prompt-injection defense scenario: detected and neutralized
+- Prompt-injection defense scenario: detected and neutralized
 
 
 
-\## Implemented Versus Simulated
+## Implemented Versus Simulated
 
 
 
@@ -390,17 +390,17 @@ Implemented:
 
 
 
-\- Agent parsing, filtering, and ranking
+- Agent parsing, filtering, and ranking
 
-\- Policy evaluation
+- Policy evaluation
 
-\- Three authorization outcomes
+- Three authorization outcomes
 
-\- Payment-option comparison
+- Payment-option comparison
 
-\- Explanations and audit events
+- Explanations and audit events
 
-\- Local end-to-end API integration
+- Local end-to-end API integration
 
 
 
@@ -408,13 +408,13 @@ Simulated:
 
 
 
-\- Products and merchants
+- Products and merchants
 
-\- Prices, shipping, fees, and rewards
+- Prices, shipping, fees, and rewards
 
-\- Payment rails and transaction execution
+- Payment rails and transaction execution
 
-\- Bank, card, and loyalty-program integration
+- Bank, card, and loyalty-program integration
 
 
 
@@ -422,7 +422,7 @@ GuardCart does not store real card information and does not make real charges.
 
 
 
-\## Limitations and Next Steps
+## Limitations and Next Steps
 
 
 
@@ -430,21 +430,21 @@ The MVP does not currently include:
 
 
 
-\- Real merchant or inventory APIs
+- Real merchant or inventory APIs
 
-\- Real payment execution
+- Real payment execution
 
-\- Tokenized card storage or 3DS
+- Tokenized card storage or 3DS
 
-\- Cryptographic mandate signing
+- Cryptographic mandate signing
 
-\- Manual mandate revocation
+- Manual mandate revocation
 
-\- Production identity and access control
+- Production identity and access control
 
-\- External LLM integration
+- External LLM integration
 
-\- Large-scale security or real-user evaluation
+- Large-scale security or real-user evaluation
 
 
 
@@ -452,25 +452,25 @@ These are future integration and validation steps, not implemented features of t
 
 
 
-\## Technology and Open-Source Credits
+## Technology and Open-Source Credits
 
 
 
-\- Python standard library for the Policy Engine
+- Python standard library for the Policy Engine
 
-\- \[FastAPI](https://fastapi.tiangolo.com/) — MIT License
+- [FastAPI](https://fastapi.tiangolo.com/) â€” MIT License
 
-\- \[Pydantic](https://docs.pydantic.dev/) — MIT License
+- [Pydantic](https://docs.pydantic.dev/) â€” MIT License
 
-\- \[Uvicorn](https://www.uvicorn.org/) — BSD 3-Clause License
+- [Uvicorn](https://www.uvicorn.org/) â€” BSD 3-Clause License
 
-\- HTML, CSS, and JavaScript frontend
+- HTML, CSS, and JavaScript frontend
 
-\- \[Inter](https://fonts.google.com/specimen/Inter) — SIL Open Font License
+- [Inter](https://fonts.google.com/specimen/Inter) â€” SIL Open Font License
 
-\- \[Font Awesome Free](https://fontawesome.com/) — icons, fonts, and code under their respective free licenses
+- [Font Awesome Free](https://fontawesome.com/) â€” icons, fonts, and code under their respective free licenses
 
-\- \[Netlify](https://www.netlify.com/) for public demo hosting
+- [Netlify](https://www.netlify.com/) for public demo hosting
 
 
 
@@ -478,15 +478,16 @@ Payment rewards and fees are demo data unless separately verified and timestampe
 
 
 
-\## Team
+## Team
 
 
 
-\- \*\*Steven Lan\*\* — Frontend and public demo
+- **Steven Lan** â€” Frontend and public demo
 
-\- \*\*Zheng\*\* — Agent and API integration
+- **Zheng** â€” Agent and API integration
 
-\- \*\*Dat\*\* — Policy Engine, repository integration and final QA
+- **Dat** â€” Policy Engine, repository integration and final QA
 
-\- \*\*Douglas\*\* — Pitch deck, presentation script and judge Q\&A
+- **Douglas** â€” Pitch deck, presentation script and judge Q&A
+
 
