@@ -229,129 +229,64 @@ guardcart-hacku2026/
 
 
 
+
 ## Run Locally on Windows
-
-
 
 ### 1. Create the Agent environment
 
-
-
-From the repository root:
-
-
+From the repository root, open PowerShell:
 
 ```powershell
-
 py -m venv agent\.venv
-
 .\agent\.venv\Scripts\python.exe -m pip install -r agent\requirements.txt
-
 ```
-
-
 
 ### 2. Run the Policy Engine tests
 
-
-
 ```powershell
-
 .\agent\.venv\Scripts\python.exe policy\test_policy_engine.py
-
 ```
-
-
 
 Expected result:
 
-
-
 ```text
-
 7/7 policy tests passed
-
 ```
-
-
 
 ### 3. Run the Agent smoke test
 
-
-
 ```powershell
-
 .\agent\.venv\Scripts\python.exe agent\run_test.py
-
 ```
-
-
 
 ### 4. Start the Agent and Policy API
 
-
-
 ```powershell
-
 .\agent\.venv\Scripts\python.exe agent\server.py
-
 ```
-
-
 
 The API will run at:
 
-
-
-```text
-
 http://127.0.0.1:8001
-
-```
-
-
 
 Interactive API documentation:
 
-
-
-```text
-
 http://127.0.0.1:8001/docs
-
-```
-
-
 
 ### 5. Serve the frontend
 
-
-
 Open another PowerShell window at the repository root:
 
-
-
 ```powershell
-
 .\agent\.venv\Scripts\python.exe -m http.server 8899
-
 ```
-
-
 
 Then open:
 
-
-
-```text
-
 http://localhost:8899/frontend/index.html
 
-```
-
-
-
 The three deterministic scenarios work without the Live API. The local Live API test requires `agent/server.py` to be running.
+
 
 
 
