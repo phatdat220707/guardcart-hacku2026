@@ -214,26 +214,17 @@ It produces:
 
 
 
+
 ## Repository Structure
 
-
-
 ```text
-
 guardcart-hacku2026/
-
-â”œâ”€â”€ agent/       Agent, catalogue, fixtures and FastAPI service
-
-â”œâ”€â”€ frontend/    HTML, CSS and JavaScript demonstration interface
-
-â”œâ”€â”€ policy/      Deterministic Policy Engine and tests
-
-â”œâ”€â”€ mandate.json Shared example mandate
-
-â”œâ”€â”€ README.md
-
-â””â”€â”€ .gitignore
-
+├── agent/         # Agent, catalogue, fixtures and FastAPI service
+├── frontend/      # HTML, CSS and JavaScript demo
+├── policy/        # Deterministic Policy Engine and tests
+├── mandate.json   # Shared example mandate
+├── README.md
+└── .gitignore
 ```
 
 
