@@ -380,40 +380,22 @@ These are future integration and validation steps, not implemented features of t
 
 ## Technology and Open-Source Credits
 
-
-
 - Python standard library for the Policy Engine
-
-- [FastAPI](https://fastapi.tiangolo.com/) â€” MIT License
-
-- [Pydantic](https://docs.pydantic.dev/) â€” MIT License
-
-- [Uvicorn](https://www.uvicorn.org/) â€” BSD 3-Clause License
-
+- [FastAPI](https://fastapi.tiangolo.com/) — MIT License
+- [Pydantic](https://docs.pydantic.dev/) — MIT License
+- [Uvicorn](https://www.uvicorn.org/) — BSD 3-Clause License
 - HTML, CSS, and JavaScript frontend
-
-- [Inter](https://fonts.google.com/specimen/Inter) â€” SIL Open Font License
-
-- [Font Awesome Free](https://fontawesome.com/) â€” icons, fonts, and code under their respective free licenses
-
+- [Inter](https://fonts.google.com/specimen/Inter) — SIL Open Font License
+- [Font Awesome Free](https://fontawesome.com/) — icons, fonts, and code under their respective free licenses
 - [Netlify](https://www.netlify.com/) for public demo hosting
-
-
 
 Payment rewards and fees are demo data unless separately verified and timestamped.
 
-
-
 ## Team
 
-
-
-- **Steven Lan** â€” Frontend and public demo
-
-- **Zheng** â€” Agent and API integration
-
-- **Dat** â€” Policy Engine, repository integration and final QA
-
-- **Douglas** â€” Pitch deck, presentation script and judge Q&A
+- **Steven Lan** — Frontend and public demo
+- **Zheng** — Agent and API integration
+- **Dat** — Policy Engine, repository integration and final QA
+- **Douglas** — Pitch deck, presentation script and judge Q&A
 
 
